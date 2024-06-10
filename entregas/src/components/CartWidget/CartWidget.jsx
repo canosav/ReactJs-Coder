@@ -5,7 +5,7 @@ import { PiShoppingCartLight } from "react-icons/pi";
 const CartWidget = () => {
   return (
     <Box m={5} >
-      <PiShoppingCartLight />
+      <PiShoppingCartLight  />
     </Box>
   )
 }
