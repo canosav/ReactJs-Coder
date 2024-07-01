@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import ItemCount from '../ItemCount/ItemCount'
 import { ToastContainer, toast } from 'react-toastify';
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text, Image, Flex} from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Flex, Box, Text, Heading, Image, Button, Stack} from '@chakra-ui/react'
+import { Link } from 'react-router-dom';
+import Context from '../../context/CartContext';
 
 const ItemDetail = ({ nombre, stock, imagen, descripcion  }) => {
-
-    const onAdd = (quantity) => {
-        toast(`Agregaste ${quantity} unidades de ${nombre}`)
+    const [ cantidad, setCantidad ] = useState(0)
+    const { addItem } = useContext(Context)
+    const onAdd = (quantity) => {   
+        const item = {
+            id,
+            nombre,
+            precio
+        } 
+        addItem(item, quantity)
+        toast(`Agregaste ${quantity} unidades`)
+        setCantidad(quantity)
     }
 
     return (
@@ -35,6 +45,33 @@ const ItemDetail = ({ nombre, stock, imagen, descripcion  }) => {
                 <CardFooter >
                     <ItemCount stock={stock} valorInicial={1} onAdd={onAdd}/>
                     <ToastContainer />
+                    {
+                        cantidad > 0 ?
+                        <Flex justify={'space-between'} align={'center'} w={'100%'}>
+                            <Button 
+                                bg={'#AD886E'} 
+                                color={'#243F4D'}
+                                w={'100%'}
+                                h={'5vh'}
+                                mt={11}
+                                borderRadius={0}
+                                _hover={{ bg: '#ECCDB7', color: '#243F4D' }}>
+                                        <Link to='/cart'>Ir al carrito</Link> 
+                            </Button>
+                            <Button 
+                                bg={'#AD886E'} 
+                                color={'#243F4D'}
+                                w={'100%'}
+                                h={'5vh'}
+                                mt={11}
+                                borderRadius={0}
+                                _hover={{ bg: '#ECCDB7', color: '#243F4D' }}>
+                                <Link to='/'>Seguir comprando</Link> 
+                            </Button>
+                        </Flex>            
+                        :
+                        <ItemCount stock={stock} initialValue={1} onAdd={onAdd} />
+                    }
                 </CardFooter>
                 </Stack>
             </Card>

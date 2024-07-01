@@ -4,6 +4,7 @@ import { Button, Flex, Text } from '@chakra-ui/react'
 const ItemCount = ({stock, valorInicial, onAdd}) => {
     const [ count, setCount ] = useState(valorInicial)
     
+    
     const incrementar = () => {
         count < stock && setCount(count + 1)
     }
